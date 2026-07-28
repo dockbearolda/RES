@@ -1,0 +1,20 @@
+QUESTIONNAIRE EN LIGNE
+
+DEPLOIEMENT RAILWAY
+1. railway.com > New Project > Deploy from GitHub repo > choisir ce depot
+2. Onglet Variables, ajouter :
+     WHATSAPP    votre numero, format international sans + ni espaces (ex 590690222647)
+     EMAIL       votre adresse e-mail
+     ADMIN_CODE  un mot de passe de votre choix
+     DATA_DIR    /data
+3. Onglet Volumes : New Volume, chemin de montage /data
+   (sans volume, les reponses disparaissent au prochain deploiement)
+4. Settings > Networking > Generate Domain : voila le lien a envoyer au client
+
+LIRE LES REPONSES
+   https://VOTRE-ADRESSE.up.railway.app/admin?code=VOTRE_ADMIN_CODE
+   Elles apparaissent aussi dans les logs Railway (onglet Deployments).
+
+COTE CLIENT
+   Il ouvre le lien sur son telephone, repond, appuie sur "Envoyer mes reponses".
+   Sauvegarde automatique : il peut fermer et reprendre plus tard.
