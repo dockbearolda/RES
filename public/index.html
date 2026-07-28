@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Questionnaire — Votre site web</title>
+<style>
+:root{
+  --bg:#0e1420; --card:#161e2d; --line:#26324a; --txt:#eef2f8; --dim:#93a1b8;
+  --gold:#c9a227; --accent:#3b6ea5; --ok:#25d366;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding-bottom:120px}
+header{position:sticky;top:0;z-index:10;background:rgba(14,20,32,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:14px 18px 10px}
+h1{margin:0;font-size:16px;font-weight:600;letter-spacing:.2px}
+.sub{color:var(--dim);font-size:12.5px;margin-top:2px}
+.bar{height:5px;background:var(--line);border-radius:99px;margin-top:11px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--gold));transition:width .35s}
+main{padding:20px 18px 0;max-width:720px;margin:0 auto}
+.sec{display:none}
+.sec.on{display:block;animation:f .25s ease}
+@keyframes f{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sec h2{font-size:22px;margin:6px 0 4px;line-height:1.25}
+.sec .lead{color:var(--dim);font-size:14px;margin:0 0 18px}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.q label.t{display:block;font-weight:600;font-size:15.5px;margin-bottom:4px}
+.q .hint{color:var(--dim);font-size:13px;margin:0 0 10px}
+.star{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.5px;display:inline-block;margin-bottom:6px}
+textarea,input[type=text]{width:100%;background:#0d1421;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:12px;font:inherit;font-size:16px;resize:vertical}
+textarea:focus,input:focus{outline:none;border-color:var(--accent)}
+textarea{min-height:78px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.opt{display:flex;align-items:center;gap:11px;background:#0d1421;border:1px solid var(--line);border-radius:10px;padding:12px 13px;cursor:pointer;font-size:15px}
+.opt input{width:20px;height:20px;accent-color:var(--gold);flex:none;margin:0}
+.opt.sel{border-color:var(--gold);background:#1a1a12}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(14,20,32,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:flex;gap:10px;justify-content:center}
+button{font:inherit;font-size:15.5px;font-weight:600;border:0;border-radius:11px;padding:14px 20px;cursor:pointer}
+.prev{background:transparent;color:var(--dim);border:1px solid var(--line);flex:0 0 auto}
+.next{background:var(--accent);color:#fff;flex:1;max-width:340px}
+.wa{background:var(--ok);color:#04321a;width:100%;margin-bottom:10px}
+.gh{background:var(--card);color:var(--txt);border:1px solid var(--line);width:100%;margin-bottom:10px}
+.done{text-align:center;padding:10px 0 30px}
+.done .big{font-size:46px}
+.saved{color:var(--dim);font-size:12px;text-align:center;margin:16px 0 0}
+.intro ul{padding-left:20px;color:var(--dim);font-size:14.5px}
+.intro li{margin-bottom:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="hd">Questionnaire — votre site web</h1>
+  <div class="sub" id="sb">Étape 1</div>
+  <div class="bar"><i id="pb"></i></div>
+</header>
+<main id="app"></main>
+<nav>
+  <button class="prev" id="bp">Retour</button>
+  <button class="next" id="bn">Continuer</button>
+</nav>
+<script>
+/* ====== CONFIG — remplacer par votre numéro WhatsApp, format international sans + ni espaces ====== */
+const WHATSAPP = "590690000000";
+const MON_EMAIL = "votre@email.com";
+/* ================================================================================================ */
+
+const D=[
+{t:"Bienvenue",lead:"",intro:true},
+{t:"Vous et votre activité",q:[
+ {k:"nom",l:"Quel nom doit apparaître sur le site ?",h:"Le nom commercial exact, avec ou sans « Chef »",ty:"t"},
+ {k:"parcours",l:"Depuis combien de temps cuisinez-vous, et où avez-vous travaillé ?",h:"Écoles, restaurants, pays, chefs. C'est ce qui justifie des tarifs élevés.",s:1},
+ {k:"distinctions",l:"Avez-vous des diplômes, récompenses ou passages dans la presse ?"},
+ {k:"difference",l:"Qu'est-ce que vous faites que les autres chefs de l'île ne font pas ?",s:1},
+ {k:"style",l:"Votre style de cuisine en quelques mots",h:"Française contemporaine, créole revisitée, méditerranéenne, produits locaux…",ty:"t"},
+ {k:"histoire",l:"Une histoire personnelle que vous aimeriez raconter sur le site ?",h:"Un plat de famille, pourquoi vous êtes venu sur l'île. C'est ce qui touche les gens."}]},
+{t:"Vos clients",q:[
+ {k:"cibles",l:"Qui sont vos clients aujourd'hui ?",h:"Cochez tout ce qui s'applique",ty:"m",o:["Propriétaires ou locataires de villas","Clients de yachts","Entreprises, séminaires","Mariages","Anniversaires, fêtes privées","Résidents de l'île","Hôtels et conciergeries"]},
+ {k:"langue_clients",l:"De quels pays viennent-ils, et dans quelle langue vous écrivent-ils ?",s:1},
+ {k:"clients_voulus",l:"Quels clients aimeriez-vous avoir plus souvent ?"},
+ {k:"questions_freq",l:"Quelles questions vos clients vous posent-ils toujours avant de réserver ?",h:"Elles deviendront la page « questions fréquentes » du site.",s:1},
+ {k:"freins",l:"Qu'est-ce qui fait qu'un client hésite, ou renonce ?"}]},
+{t:"Vos prestations",q:[
+ {k:"services",l:"Que proposez-vous ?",h:"Cochez tout, même ce que vous faites rarement",ty:"m",o:["Chef à domicile pour un repas","Chef privé plusieurs jours ou à la semaine","Traiteur avec livraison","Mariages","Événements d'entreprise","Yachts et bateaux","Cours de cuisine","Petit-déjeuner, brunch","Cocktails, apéritifs dînatoires","Chef en résidence dans une villa"]},
+ {k:"priorite",l:"Laquelle voulez-vous vendre en priorité ?",ty:"t",s:1},
+ {k:"signature",l:"Avez-vous une prestation unique, dont les clients se souviennent ?",h:"Le concurrent a ses plateaux flottants de piscine. Et vous ?",s:1},
+ {k:"deroule",l:"Racontez comment se passe une prestation, du premier message jusqu'à votre départ",h:"Étape par étape. Cela rassure énormément les futurs clients.",s:1},
+ {k:"inclus",l:"Qu'est-ce qui est compris dans le prix, et qu'est-ce qui ne l'est pas ?",h:"Courses, vaisselle, service à table, nettoyage, boissons, personnel en plus"},
+ {k:"equipe",l:"Travaillez-vous seul ou avec une équipe ? Combien de personnes ?"},
+ {k:"convives",l:"Combien de convives au minimum et au maximum ?",ty:"t"}]},
+{t:"Menus et prix",q:[
+ {k:"menus_dispo",l:"Vos menus sont-ils déjà écrits quelque part ?",h:"PDF, Word, photos, carnet papier — envoyez-moi tout, même en brouillon",s:1},
+ {k:"saison",l:"Vos menus changent-ils selon la saison ou les arrivages ?"},
+ {k:"regimes",l:"Gérez-vous les régimes particuliers ?",h:"Sans gluten, végétarien, végan, halal, allergies"},
+ {k:"prix_affiche",l:"Voulez-vous afficher vos prix sur le site ?",ty:"u",s:1,o:["Non, uniquement sur devis (comme le concurrent, cela renforce le haut de gamme)","Oui, un prix « à partir de » par personne","Oui, des formules complètes avec leur prix","Je ne sais pas, conseillez-moi"]},
+ {k:"prix_detail",l:"Si vous affichez des prix, lesquels ?"},
+ {k:"conditions",l:"Vos conditions de réservation",h:"Acompte, délai à prévoir, conditions d'annulation"}]},
+{t:"Où vous intervenez",q:[
+ {k:"zones",l:"Dans quels quartiers vous déplacez-vous ?",h:"Citez-les : Marigot, Grand-Case, Orient Bay, Terres Basses, Simpson Bay, Maho, Philipsburg… Ces noms font venir des clients par Google.",s:1},
+ {k:"cotes",l:"Côté français, côté hollandais, ou les deux ?",ty:"u",o:["Les deux","Côté français uniquement","Côté hollandais uniquement"]},
+ {k:"iles",l:"Vous déplacez-vous sur les îles voisines ? (Anguilla, Saint-Barth)",ty:"t"},
+ {k:"frais_depl",l:"Facturez-vous des frais de déplacement au-delà d'une certaine distance ?",ty:"t"},
+ {k:"horaires",l:"Vos horaires et vos jours de fermeture"},
+ {k:"saison_haute",l:"Quels sont vos mois les plus chargés, et les plus calmes ?"}]},
+{t:"Photos et vidéos",lead:"C'est le point le plus important. Un beau site sans belles photos ne sera jamais haut de gamme.",q:[
+ {k:"photos_nb",l:"Combien de photos professionnelles avez-vous ?",ty:"t",s:1},
+ {k:"photos_type",l:"De quoi disposez-vous ?",ty:"m",o:["Plats en gros plan","Tables dressées, ambiances","Vous en train de cuisiner","Un portrait de vous en tenue","Photos prises chez des clients","Des vidéos","Presque rien d'utilisable"]},
+ {k:"shooting",l:"Êtes-vous prêt à faire une séance photo professionnelle si besoin ?",ty:"u",s:1,o:["Oui","Non","Ça dépend du prix"]},
+ {k:"visage",l:"Acceptez-vous d'apparaître en photo et en vidéo sur le site ?",h:"Le concurrent le fait, et c'est une grande partie de sa réussite.",ty:"u",o:["Oui","Non","Plutôt discrètement"]}]},
+{t:"Avis et partenaires",q:[
+ {k:"avis_ou",l:"Où avez-vous des avis clients aujourd'hui ?",h:"Google, Facebook, Instagram, TripAdvisor, messages WhatsApp, e-mails de remerciement",s:1},
+ {k:"avis_envoi",l:"Pouvez-vous m'en envoyer 8 à 10, avec le prénom et le pays du client ?",ty:"u",o:["Oui","Je vais essayer","Je n'en ai pas"]},
+ {k:"partenaires",l:"Travaillez-vous avec des villas, conciergeries, agences ou loueurs de bateaux ?",h:"Afficher leurs logos, avec leur accord, crédibilise immédiatement.",s:1},
+ {k:"prestige",l:"Avez-vous cuisiné pour des clients connus ou lors d'événements marquants ?",h:"Sans citer de nom si vous préférez"}]},
+{t:"Comment vous joindre",q:[
+ {k:"canal",l:"Par quel moyen préférez-vous être contacté ?",ty:"m",o:["WhatsApp","Un formulaire sur le site qui vous envoie un e-mail","E-mail direct","Téléphone","Instagram ou Facebook"]},
+ {k:"formulaire",l:"Voulez-vous un formulaire de demande de devis sur le site ?",h:"Le concurrent n'en a pas. C'est un avantage direct.",ty:"u",s:1,o:["Oui","Non, WhatsApp me suffit"]},
+ {k:"infos_devis",l:"Quelles informations voulez-vous recevoir dans une demande ?",h:"Date, nombre de convives, adresse de la villa, type d'événement, budget, allergies…"},
+ {k:"calendrier",l:"Voulez-vous montrer vos disponibilités en ligne ?",ty:"u",o:["Oui","Non","Peut-être plus tard"]},
+ {k:"coordonnees",l:"Vos coordonnées exactes telles qu'elles doivent apparaître",h:"Téléphone, e-mail, adresse",s:1}]},
+{t:"Langues",q:[
+ {k:"langues",l:"En quelles langues le site doit-il exister ?",ty:"u",s:1,o:["Français et anglais (recommandé : la plupart des clients haut de gamme de l'île sont anglophones)","Français uniquement","Français, anglais et néerlandais"]},
+ {k:"traduction",l:"Pouvez-vous fournir les traductions, ou dois-je m'en occuper ?",ty:"u",o:["Occupez-vous en","Je peux traduire","Quelqu'un de mon entourage peut le faire"]}]},
+{t:"Le style du site",q:[
+ {k:"logo",l:"Avez-vous un logo ?",ty:"u",o:["Oui, et j'ai le fichier d'origine","Oui, mais seulement une image","Non, il faut le créer"]},
+ {k:"couleurs",l:"Des couleurs auxquelles vous tenez, ou que vous ne voulez surtout pas ?"},
+ {k:"sites_aimes",l:"Citez deux ou trois sites que vous trouvez beaux",h:"Même en dehors de la restauration",s:1},
+ {k:"aime_concurrent",l:"Qu'est-ce qui vous plaît précisément dans le site du concurrent ?",s:1},
+ {k:"aime_pas",l:"Et qu'est-ce que vous n'aimez pas, ou qui vous manque ?"},
+ {k:"impression",l:"Quelle impression le visiteur doit-il avoir en trois secondes ?",ty:"u",o:["Luxe discret, épuré","Chaleureux, généreux, familial","Créatif, gastronomique, spectaculaire","Îles, soleil, élégance décontractée"]}]},
+{t:"Ce que vous avez déjà",q:[
+ {k:"site_actuel",l:"Avez-vous déjà un site ? À quelle adresse ?",ty:"t"},
+ {k:"domaine",l:"Possédez-vous une adresse internet (nom de domaine) ? Chez qui ?",h:"Et avez-vous encore les identifiants pour y accéder ?"},
+ {k:"reseaux",l:"Vos réseaux sociaux",h:"Collez les liens, et indiquez le nombre d'abonnés si vous le savez",s:1},
+ {k:"google",l:"Apparaissez-vous sur Google Maps ?",h:"C'est souvent la première source de clients, avant même le site. Si non, on la crée.",ty:"u",s:1,o:["Oui","Non","Je ne sais pas"]},
+ {k:"email_pro",l:"Utilisez-vous une adresse e-mail professionnelle, ou un gmail ?",ty:"t"},
+ {k:"legal",l:"Vos informations légales",h:"Numéro SIRET, raison sociale, adresse — obligatoires en bas du site"}]},
+{t:"Vos objectifs",q:[
+ {k:"action",l:"Que doit faire le visiteur en priorité sur votre site ?",ty:"u",s:1,o:["Envoyer une demande de devis","M'appeler ou m'écrire sur WhatsApp","Consulter les menus","Réserver une date directement"]},
+ {k:"volume",l:"Combien de demandes recevez-vous par mois, et combien en voudriez-vous ?"},
+ {k:"concurrents",l:"D'autres concurrents que vous surveillez ?"},
+ {k:"delai",l:"Pour quand voulez-vous que le site soit en ligne ?",h:"Le début de la haute saison est souvent la vraie date limite.",s:1},
+ {k:"autonomie",l:"Voulez-vous pouvoir modifier vous-même les menus et les photos ?",ty:"u",o:["Oui, je veux pouvoir le faire seul","Non, occupez-vous en","Peu importe"]},
+ {k:"budget",l:"Quel budget avez-vous prévu ?",ty:"t"},
+ {k:"autre",l:"Autre chose à me dire ?"}]},
+{t:"C'est terminé",fin:true}
+];
+
+const app=document.getElementById('app'),pb=document.getElementById('pb'),sb=document.getElementById('sb'),
+bn=document.getElementById('bn'),bp=document.getElementById('bp');
+let A={}; try{A=JSON.parse(localStorage.getItem('qsite')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('qsite',JSON.stringify(A))}catch(e){}};
+let i=0;
+
+D.forEach((s,n)=>{
+  const d=document.createElement('section');d.className='sec';d.dataset.n=n;
+  let h='<h2>'+s.t+'</h2>';
+  if(s.lead)h+='<p class="lead">'+s.lead+'</p>';
+  if(s.intro)h+=`<p class="lead">Ces questions servent à construire votre site. Répondez comme vous parlez, en quelques mots ou en détail. Rien n'est obligatoire.</p>
+  <div class="q intro"><ul>
+  <li>Ça prend une quinzaine de minutes.</li>
+  <li>Vos réponses se gardent toutes seules : vous pouvez fermer et revenir plus tard.</li>
+  <li>À la fin, un bouton m'envoie tout automatiquement.</li>
+  <li>Si une question ne vous parle pas, passez-la.</li>
+  </ul></div>`;
+  if(s.fin)h+=`<div class="done"><div class="big">✓</div>
+  <p class="lead">Merci. Il ne reste qu'à m'envoyer vos réponses.</p></div>
+  <button class="wa" id="sendwa">Envoyer mes réponses</button>
+  <button class="gh" id="sendmail">Ou envoyer par e-mail</button>
+  <button class="gh" id="dl">Enregistrer une copie</button>
+  <p class="saved" id="note">Pensez aussi à m'envoyer vos photos, vos menus et votre logo.</p>`;
+  (s.q||[]).forEach(q=>{
+    h+='<div class="q">';
+    if(q.s)h+='<span class="star">IMPORTANT</span><br>';
+    h+='<label class="t">'+q.l+'</label>';
+    if(q.h)h+='<p class="hint">'+q.h+'</p>';
+    if(q.ty==='m'||q.ty==='u'){
+      h+='<div class="opts">';
+      q.o.forEach((o,j)=>{h+=`<label class="opt" data-k="${q.k}"><input type="${q.ty==='m'?'checkbox':'radio'}" name="${q.k}" value="${o.replace(/"/g,'&quot;')}"><span>${o}</span></label>`});
+      h+='</div>';
+    } else if(q.ty==='t'){h+=`<input type="text" data-k="${q.k}">`}
+    else{h+=`<textarea data-k="${q.k}"></textarea>`}
+    h+='</div>';
+  });
+  d.innerHTML=h;app.appendChild(d);
+});
+
+app.querySelectorAll('[data-k]').forEach(el=>{
+  if(el.tagName==='LABEL')return;
+  const k=el.dataset.k; if(A[k])el.value=A[k];
+  el.addEventListener('input',()=>{A[k]=el.value;save()});
+});
+app.querySelectorAll('.opt').forEach(l=>{
+  const inp=l.querySelector('input'),k=l.dataset.k;
+  const cur=A[k]||(inp.type==='checkbox'?[]:'');
+  if(inp.type==='checkbox'){if(Array.isArray(cur)&&cur.includes(inp.value)){inp.checked=true;l.classList.add('sel')}}
+  else if(cur===inp.value){inp.checked=true;l.classList.add('sel')}
+  inp.addEventListener('change',()=>{
+    if(inp.type==='checkbox'){
+      const arr=Array.isArray(A[k])?A[k]:[];
+      A[k]=inp.checked?[...arr,inp.value]:arr.filter(v=>v!==inp.value);
+    }else{
+      A[k]=inp.value;
+      document.querySelectorAll(`.opt[data-k="${k}"]`).forEach(o=>o.classList.remove('sel'));
+    }
+    l.classList.toggle('sel',inp.checked);save();
+  });
+});
+
+function show(n){
+  i=Math.max(0,Math.min(D.length-1,n));
+  document.querySelectorAll('.sec').forEach(s=>s.classList.toggle('on',+s.dataset.n===i));
+  pb.style.width=(i/(D.length-1)*100)+'%';
+  sb.textContent=i===0?'Avant de commencer':(i===D.length-1?'Terminé':'Étape '+i+' sur '+(D.length-2));
+  bp.style.visibility=i?'visible':'hidden';
+  bn.style.display=i===D.length-1?'none':'block';
+  bn.textContent=i===0?'Commencer':(i===D.length-2?'Terminer':'Continuer');
+  window.scrollTo({top:0});
+}
+bn.onclick=()=>show(i+1); bp.onclick=()=>show(i-1);
+show(0);
+
+function texte(){
+  let o='QUESTIONNAIRE SITE WEB\n'+new Date().toLocaleDateString('fr-FR')+'\n';
+  D.forEach(s=>{if(!s.q)return;o+='\n--- '+s.t.toUpperCase()+' ---\n';
+    s.q.forEach(q=>{let v=A[q.k];if(Array.isArray(v))v=v.join(', ');
+      o+='\n'+q.l+'\n'+((v&&String(v).trim())?v:'(pas de réponse)')+'\n';});});
+  return o;
+}
+const wa=document.getElementById('sendwa');
+wa.onclick=async()=>{
+  wa.disabled=true;wa.textContent='Envoi en cours…';
+  let ok=false;
+  try{const r=await fetch('/api/reponses',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({nom:A.nom||'',reponses:A,texte:texte()})});ok=r.ok;}catch(e){}
+  if(ok){
+    wa.style.background='#25d366';wa.textContent='✓ Réponses envoyées';
+    document.getElementById('note').textContent='C\'est bon, j\'ai tout reçu. Vous pouvez fermer la page. Pensez à m\'envoyer aussi vos photos, vos menus et votre logo.';
+    setTimeout(()=>{window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent("Bonjour, j'ai terminé le questionnaire pour le site."),'_blank');},700);
+  }else{
+    wa.disabled=false;wa.textContent='Réessayer l\'envoi';
+    document.getElementById('note').textContent="L'envoi n'a pas fonctionné. Vérifiez votre connexion, ou utilisez le bouton e-mail ci-dessous.";
+  }
+};
+document.getElementById('sendmail').onclick=()=>{
+  location.href='mailto:'+MON_EMAIL+'?subject='+encodeURIComponent('Questionnaire site web')+'&body='+encodeURIComponent(texte());
+};
+document.getElementById('dl').onclick=()=>{
+  const b=new Blob([texte()],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download='mes-reponses.txt';a.click();URL.revokeObjectURL(u);
+};
+</script>
+</body>
+</html>
