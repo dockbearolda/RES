@@ -7,15 +7,17 @@ const DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const CODE = process.env.ADMIN_CODE || 'admin';
 const WA = process.env.WHATSAPP || '590690000000';
 const MAIL = process.env.EMAIL || 'votre@email.com';
+const PRENOM = (process.env.PRENOM || 'Bruno').replace(/"/g, '');
 fs.mkdirSync(DIR, { recursive: true });
 
 app.use(express.json({ limit: '1mb' }));
 
-// page principale : les coordonnees viennent des variables Railway
+// page principale : coordonnees et prenom du client viennent des variables Railway
 app.get('/', (req, res) => {
   let html = fs.readFileSync(path.join(__dirname, 'public', 'index.html'), 'utf8');
   html = html.replace(/const WHATSAPP = "[^"]*"/, 'const WHATSAPP = "' + WA + '"')
-             .replace(/const MON_EMAIL = "[^"]*"/, 'const MON_EMAIL = "' + MAIL + '"');
+             .replace(/const MON_EMAIL = "[^"]*"/, 'const MON_EMAIL = "' + MAIL + '"')
+             .replace(/const PRENOM = "[^"]*"/, 'const PRENOM = "' + PRENOM + '"');
   res.type('html').send(html);
 });
 
