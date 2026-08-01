@@ -7,7 +7,8 @@ const DIR = process.env.DATA_DIR || path.join(__dirname, 'data');
 const CODE = process.env.ADMIN_CODE || 'admin';
 const WA = process.env.WHATSAPP || '590690000000';
 const MAIL = process.env.EMAIL || 'votre@email.com';
-const PRENOM = (process.env.PRENOM || 'Bruno').replace(/"/g, '');
+// injecte dans du HTML : on ne laisse passer qu'un prenom, pas du balisage
+const PRENOM = (process.env.PRENOM || 'Bruno').replace(/[^\p{L}\p{M}' -]/gu, '').slice(0, 40) || 'Bruno';
 fs.mkdirSync(DIR, { recursive: true });
 
 app.use(express.json({ limit: '1mb' }));
