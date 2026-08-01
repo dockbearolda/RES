@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Questionnaire — Votre site web</title>
+<title>Questionnaire — ton site web</title>
 <style>
 :root{
   --bg:#0e1420; --card:#161e2d; --line:#26324a; --txt:#eef2f8; --dim:#93a1b8;
@@ -49,7 +49,7 @@ button{font:inherit;font-size:15.5px;font-weight:600;border:0;border-radius:11px
 </head>
 <body>
 <header>
-  <h1 id="hd">Questionnaire — votre site web</h1>
+  <h1 id="hd">Questionnaire — ton site web</h1>
   <div class="sub" id="sb">Étape 1</div>
   <div class="bar"><i id="pb"></i></div>
 </header>
@@ -62,83 +62,84 @@ button{font:inherit;font-size:15.5px;font-weight:600;border:0;border-radius:11px
 /* ====== CONFIG — remplacer par votre numéro WhatsApp, format international sans + ni espaces ====== */
 const WHATSAPP = "590690000000";
 const MON_EMAIL = "votre@email.com";
+const PRENOM = "Bruno";
 /* ================================================================================================ */
 
 const D=[
-{t:"Bienvenue",lead:"",intro:true},
-{t:"Vous et votre activité",q:[
+{t:`Salut ${PRENOM}`,lead:"",intro:true},
+{t:"Toi et ton activité",q:[
  {k:"nom",l:"Quel nom doit apparaître sur le site ?",h:"Le nom commercial exact, avec ou sans « Chef »",ty:"t"},
- {k:"parcours",l:"Depuis combien de temps cuisinez-vous, et où avez-vous travaillé ?",h:"Écoles, restaurants, pays, chefs. C'est ce qui justifie des tarifs élevés.",s:1},
- {k:"distinctions",l:"Avez-vous des diplômes, récompenses ou passages dans la presse ?"},
- {k:"difference",l:"Qu'est-ce que vous faites que les autres chefs de l'île ne font pas ?",s:1},
- {k:"style",l:"Votre style de cuisine en quelques mots",h:"Française contemporaine, créole revisitée, méditerranéenne, produits locaux…",ty:"t"},
- {k:"histoire",l:"Une histoire personnelle que vous aimeriez raconter sur le site ?",h:"Un plat de famille, pourquoi vous êtes venu sur l'île. C'est ce qui touche les gens."}]},
-{t:"Vos clients",q:[
- {k:"cibles",l:"Qui sont vos clients aujourd'hui ?",h:"Cochez tout ce qui s'applique",ty:"m",o:["Propriétaires ou locataires de villas","Clients de yachts","Entreprises, séminaires","Mariages","Anniversaires, fêtes privées","Résidents de l'île","Hôtels et conciergeries"]},
- {k:"langue_clients",l:"De quels pays viennent-ils, et dans quelle langue vous écrivent-ils ?",s:1},
- {k:"clients_voulus",l:"Quels clients aimeriez-vous avoir plus souvent ?"},
- {k:"questions_freq",l:"Quelles questions vos clients vous posent-ils toujours avant de réserver ?",h:"Elles deviendront la page « questions fréquentes » du site.",s:1},
+ {k:"parcours",l:"Depuis combien de temps tu cuisines, et où as-tu travaillé ?",h:"Écoles, restaurants, pays, chefs. C'est ce qui justifie des tarifs élevés.",s:1},
+ {k:"distinctions",l:"Tu as des diplômes, des récompenses, des passages dans la presse ?"},
+ {k:"difference",l:"Qu'est-ce que tu fais que les autres chefs de l'île ne font pas ?",s:1},
+ {k:"style",l:"Ton style de cuisine en quelques mots",h:"Française contemporaine, créole revisitée, méditerranéenne, produits locaux…",ty:"t"},
+ {k:"histoire",l:"Une histoire personnelle que tu aimerais raconter sur le site ?",h:"Un plat de famille, pourquoi tu es venu sur l'île. C'est ce qui touche les gens."}]},
+{t:"Tes clients",q:[
+ {k:"cibles",l:"Qui sont tes clients aujourd'hui ?",h:"Coche tout ce qui s'applique",ty:"m",o:["Propriétaires ou locataires de villas","Clients de yachts","Entreprises, séminaires","Mariages","Anniversaires, fêtes privées","Résidents de l'île","Hôtels et conciergeries"]},
+ {k:"langue_clients",l:"De quels pays ils viennent, et dans quelle langue ils t'écrivent ?",s:1},
+ {k:"clients_voulus",l:"Quels clients tu aimerais avoir plus souvent ?"},
+ {k:"questions_freq",l:"Quelles questions tes clients te posent toujours avant de réserver ?",h:"Elles deviendront la page « questions fréquentes » du site.",s:1},
  {k:"freins",l:"Qu'est-ce qui fait qu'un client hésite, ou renonce ?"}]},
-{t:"Vos prestations",q:[
- {k:"services",l:"Que proposez-vous ?",h:"Cochez tout, même ce que vous faites rarement",ty:"m",o:["Chef à domicile pour un repas","Chef privé plusieurs jours ou à la semaine","Traiteur avec livraison","Mariages","Événements d'entreprise","Yachts et bateaux","Cours de cuisine","Petit-déjeuner, brunch","Cocktails, apéritifs dînatoires","Chef en résidence dans une villa"]},
- {k:"priorite",l:"Laquelle voulez-vous vendre en priorité ?",ty:"t",s:1},
- {k:"signature",l:"Avez-vous une prestation unique, dont les clients se souviennent ?",h:"Un plat, un format, une mise en scène dont on reparle longtemps après votre départ.",s:1},
- {k:"deroule",l:"Racontez comment se passe une prestation, du premier message jusqu'à votre départ",h:"Étape par étape. Cela rassure énormément les futurs clients.",s:1},
+{t:"Tes prestations",q:[
+ {k:"services",l:"Qu'est-ce que tu proposes ?",h:"Coche tout, même ce que tu fais rarement",ty:"m",o:["Chef à domicile pour un repas","Chef privé plusieurs jours ou à la semaine","Traiteur avec livraison","Mariages","Événements d'entreprise","Yachts et bateaux","Cours de cuisine","Petit-déjeuner, brunch","Cocktails, apéritifs dînatoires","Chef en résidence dans une villa"]},
+ {k:"priorite",l:"Laquelle tu veux vendre en priorité ?",ty:"t",s:1},
+ {k:"signature",l:"Tu as une prestation unique, dont les clients se souviennent ?",h:"Un plat, un format, une mise en scène dont on reparle longtemps après ton départ.",s:1},
+ {k:"deroule",l:"Raconte comment se passe une prestation, du premier message jusqu'à ton départ",h:"Étape par étape. Ça rassure énormément les futurs clients.",s:1},
  {k:"inclus",l:"Qu'est-ce qui est compris dans le prix, et qu'est-ce qui ne l'est pas ?",h:"Courses, vaisselle, service à table, nettoyage, boissons, personnel en plus"},
- {k:"equipe",l:"Travaillez-vous seul ou avec une équipe ? Combien de personnes ?"},
+ {k:"equipe",l:"Tu travailles seul ou avec une équipe ? Combien de personnes ?"},
  {k:"convives",l:"Combien de convives au minimum et au maximum ?",ty:"t"}]},
 {t:"Menus et prix",q:[
- {k:"menus_dispo",l:"Vos menus sont-ils déjà écrits quelque part ?",h:"PDF, Word, photos, carnet papier — envoyez-moi tout, même en brouillon",s:1},
- {k:"saison",l:"Vos menus changent-ils selon la saison ou les arrivages ?"},
- {k:"regimes",l:"Gérez-vous les régimes particuliers ?",h:"Sans gluten, végétarien, végan, halal, allergies"},
- {k:"prix_affiche",l:"Voulez-vous afficher vos prix sur le site ?",ty:"u",s:1,o:["Non, uniquement sur devis (cela renforce le positionnement haut de gamme)","Oui, un prix « à partir de » par personne","Oui, des formules complètes avec leur prix","Je ne sais pas, conseillez-moi"]},
- {k:"prix_detail",l:"Si vous affichez des prix, lesquels ?"},
- {k:"conditions",l:"Vos conditions de réservation",h:"Acompte, délai à prévoir, conditions d'annulation"}]},
-{t:"Où vous intervenez",q:[
- {k:"zones",l:"Dans quels quartiers vous déplacez-vous ?",h:"Citez-les : Marigot, Grand-Case, Orient Bay, Terres Basses, Simpson Bay, Maho, Philipsburg… Ces noms font venir des clients par Google.",s:1},
+ {k:"menus_dispo",l:"Tes menus sont déjà écrits quelque part ?",h:"PDF, Word, photos, carnet papier — envoie-moi tout, même en brouillon",s:1},
+ {k:"saison",l:"Tes menus changent selon la saison ou les arrivages ?"},
+ {k:"regimes",l:"Tu gères les régimes particuliers ?",h:"Sans gluten, végétarien, végan, halal, allergies"},
+ {k:"prix_affiche",l:"Tu veux afficher tes prix sur le site ?",ty:"u",s:1,o:["Non, uniquement sur devis (ça renforce le positionnement haut de gamme)","Oui, un prix « à partir de » par personne","Oui, des formules complètes avec leur prix","Je ne sais pas, conseille-moi"]},
+ {k:"prix_detail",l:"Si tu affiches des prix, lesquels ?"},
+ {k:"conditions",l:"Tes conditions de réservation",h:"Acompte, délai à prévoir, conditions d'annulation"}]},
+{t:"Où tu interviens",q:[
+ {k:"zones",l:"Dans quels quartiers tu te déplaces ?",h:"Cite-les : Marigot, Grand-Case, Orient Bay, Terres Basses, Simpson Bay, Maho, Philipsburg… Ces noms font venir des clients par Google.",s:1},
  {k:"cotes",l:"Côté français, côté hollandais, ou les deux ?",ty:"u",o:["Les deux","Côté français uniquement","Côté hollandais uniquement"]},
- {k:"iles",l:"Vous déplacez-vous sur les îles voisines ? (Anguilla, Saint-Barth)",ty:"t"},
- {k:"frais_depl",l:"Facturez-vous des frais de déplacement au-delà d'une certaine distance ?",ty:"t"},
- {k:"horaires",l:"Vos horaires et vos jours de fermeture"},
- {k:"saison_haute",l:"Quels sont vos mois les plus chargés, et les plus calmes ?"}]},
-{t:"Photos et vidéos",lead:"C'est le point le plus important. Un beau site sans belles photos ne sera jamais haut de gamme.",q:[
- {k:"photos_nb",l:"Combien de photos professionnelles avez-vous ?",ty:"t",s:1},
- {k:"photos_type",l:"De quoi disposez-vous ?",ty:"m",o:["Plats en gros plan","Tables dressées, ambiances","Vous en train de cuisiner","Un portrait de vous en tenue","Photos prises chez des clients","Des vidéos","Presque rien d'utilisable"]},
- {k:"shooting",l:"Êtes-vous prêt à faire une séance photo professionnelle si besoin ?",ty:"u",s:1,o:["Oui","Non","Ça dépend du prix"]},
- {k:"visage",l:"Acceptez-vous d'apparaître en photo et en vidéo sur le site ?",h:"Un visage identifiable inspire confiance : on réserve un chef, pas une prestation anonyme.",ty:"u",o:["Oui","Non","Plutôt discrètement"]}]},
+ {k:"iles",l:"Tu te déplaces sur les îles voisines ? (Anguilla, Saint-Barth)",ty:"t"},
+ {k:"frais_depl",l:"Tu factures des frais de déplacement au-delà d'une certaine distance ?",ty:"t"},
+ {k:"horaires",l:"Tes horaires et tes jours de fermeture"},
+ {k:"saison_haute",l:"Quels sont tes mois les plus chargés, et les plus calmes ?"}]},
+{t:"Photos et vidéos",lead:`C'est le point le plus important, ${PRENOM}. Un beau site sans belles photos ne sera jamais haut de gamme.`,q:[
+ {k:"photos_nb",l:"Combien de photos professionnelles tu as ?",ty:"t",s:1},
+ {k:"photos_type",l:"De quoi tu disposes ?",ty:"m",o:["Plats en gros plan","Tables dressées, ambiances","Toi en train de cuisiner","Un portrait de toi en tenue","Photos prises chez des clients","Des vidéos","Presque rien d'utilisable"]},
+ {k:"shooting",l:"Tu es prêt à faire une séance photo professionnelle si besoin ?",ty:"u",s:1,o:["Oui","Non","Ça dépend du prix"]},
+ {k:"visage",l:"Tu acceptes d'apparaître en photo et en vidéo sur le site ?",h:"Un visage identifiable inspire confiance : on réserve un chef, pas une prestation anonyme.",ty:"u",o:["Oui","Non","Plutôt discrètement"]}]},
 {t:"Avis et partenaires",q:[
- {k:"avis_ou",l:"Où avez-vous des avis clients aujourd'hui ?",h:"Google, Facebook, Instagram, TripAdvisor, messages WhatsApp, e-mails de remerciement",s:1},
- {k:"avis_envoi",l:"Pouvez-vous m'en envoyer 8 à 10, avec le prénom et le pays du client ?",ty:"u",o:["Oui","Je vais essayer","Je n'en ai pas"]},
- {k:"partenaires",l:"Travaillez-vous avec des villas, conciergeries, agences ou loueurs de bateaux ?",h:"Afficher leurs logos, avec leur accord, crédibilise immédiatement.",s:1},
- {k:"prestige",l:"Avez-vous cuisiné pour des clients connus ou lors d'événements marquants ?",h:"Sans citer de nom si vous préférez"}]},
-{t:"Comment vous joindre",q:[
- {k:"canal",l:"Par quel moyen préférez-vous être contacté ?",ty:"m",o:["WhatsApp","Un formulaire sur le site qui vous envoie un e-mail","E-mail direct","Téléphone","Instagram ou Facebook"]},
- {k:"formulaire",l:"Voulez-vous un formulaire de demande de devis sur le site ?",h:"Il capte les demandes même quand vous êtes en cuisine, et vous recevez toutes les informations d'un coup.",ty:"u",s:1,o:["Oui","Non, WhatsApp me suffit"]},
- {k:"infos_devis",l:"Quelles informations voulez-vous recevoir dans une demande ?",h:"Date, nombre de convives, adresse de la villa, type d'événement, budget, allergies…"},
- {k:"calendrier",l:"Voulez-vous montrer vos disponibilités en ligne ?",ty:"u",o:["Oui","Non","Peut-être plus tard"]},
- {k:"coordonnees",l:"Vos coordonnées exactes telles qu'elles doivent apparaître",h:"Téléphone, e-mail, adresse",s:1}]},
+ {k:"avis_ou",l:"Où tu as des avis clients aujourd'hui ?",h:"Google, Facebook, Instagram, TripAdvisor, messages WhatsApp, e-mails de remerciement",s:1},
+ {k:"avis_envoi",l:"Tu peux m'en envoyer 8 à 10, avec le prénom et le pays du client ?",ty:"u",o:["Oui","Je vais essayer","Je n'en ai pas"]},
+ {k:"partenaires",l:"Tu travailles avec des villas, conciergeries, agences ou loueurs de bateaux ?",h:"Afficher leurs logos, avec leur accord, crédibilise immédiatement.",s:1},
+ {k:"prestige",l:"Tu as cuisiné pour des clients connus ou lors d'événements marquants ?",h:"Sans citer de nom si tu préfères"}]},
+{t:"Comment te joindre",q:[
+ {k:"canal",l:"Par quel moyen tu préfères être contacté ?",ty:"m",o:["WhatsApp","Un formulaire sur le site qui t'envoie un e-mail","E-mail direct","Téléphone","Instagram ou Facebook"]},
+ {k:"formulaire",l:"Tu veux un formulaire de demande de devis sur le site ?",h:"Il capte les demandes même quand tu es en cuisine, et tu reçois toutes les informations d'un coup.",ty:"u",s:1,o:["Oui","Non, WhatsApp me suffit"]},
+ {k:"infos_devis",l:"Quelles informations tu veux recevoir dans une demande ?",h:"Date, nombre de convives, adresse de la villa, type d'événement, budget, allergies…"},
+ {k:"calendrier",l:"Tu veux montrer tes disponibilités en ligne ?",ty:"u",o:["Oui","Non","Peut-être plus tard"]},
+ {k:"coordonnees",l:"Tes coordonnées exactes telles qu'elles doivent apparaître",h:"Téléphone, e-mail, adresse",s:1}]},
 {t:"Langues",q:[
- {k:"langues",l:"En quelles langues le site doit-il exister ?",ty:"u",s:1,o:["Français et anglais (recommandé : la plupart des clients haut de gamme de l'île sont anglophones)","Français uniquement","Français, anglais et néerlandais"]},
- {k:"traduction",l:"Pouvez-vous fournir les traductions, ou dois-je m'en occuper ?",ty:"u",o:["Occupez-vous en","Je peux traduire","Quelqu'un de mon entourage peut le faire"]}]},
+ {k:"langues",l:"En quelles langues le site doit exister ?",ty:"u",s:1,o:["Français et anglais (recommandé : la plupart des clients haut de gamme de l'île sont anglophones)","Français uniquement","Français, anglais et néerlandais"]},
+ {k:"traduction",l:"Tu peux fournir les traductions, ou je m'en occupe ?",ty:"u",o:["Occupe-t'en","Je peux traduire","Quelqu'un de mon entourage peut le faire"]}]},
 {t:"Le style du site",q:[
- {k:"logo",l:"Avez-vous un logo ?",ty:"u",o:["Oui, et j'ai le fichier d'origine","Oui, mais seulement une image","Non, il faut le créer"]},
- {k:"couleurs",l:"Des couleurs auxquelles vous tenez, ou que vous ne voulez surtout pas ?"},
- {k:"sites_aimes",l:"Citez deux ou trois sites que vous trouvez beaux",h:"Même en dehors de la restauration",s:1},
- {k:"aime_pas",l:"À l'inverse, qu'est-ce que vous n'aimez pas, ou qui vous manque, sur les sites que vous voyez ?",s:1},
- {k:"impression",l:"Quelle impression le visiteur doit-il avoir en trois secondes ?",ty:"u",o:["Luxe discret, épuré","Chaleureux, généreux, familial","Créatif, gastronomique, spectaculaire","Îles, soleil, élégance décontractée"]}]},
-{t:"Ce que vous avez déjà",q:[
- {k:"site_actuel",l:"Avez-vous déjà un site ? À quelle adresse ?",ty:"t"},
- {k:"domaine",l:"Possédez-vous une adresse internet (nom de domaine) ? Chez qui ?",h:"Et avez-vous encore les identifiants pour y accéder ?"},
- {k:"reseaux",l:"Vos réseaux sociaux",h:"Collez les liens, et indiquez le nombre d'abonnés si vous le savez",s:1},
- {k:"google",l:"Apparaissez-vous sur Google Maps ?",h:"C'est souvent la première source de clients, avant même le site. Si non, on la crée.",ty:"u",s:1,o:["Oui","Non","Je ne sais pas"]},
- {k:"email_pro",l:"Utilisez-vous une adresse e-mail professionnelle, ou un gmail ?",ty:"t"},
- {k:"legal",l:"Vos informations légales",h:"Numéro SIRET, raison sociale, adresse — obligatoires en bas du site"}]},
-{t:"Vos objectifs",q:[
- {k:"action",l:"Que doit faire le visiteur en priorité sur votre site ?",ty:"u",s:1,o:["Envoyer une demande de devis","M'appeler ou m'écrire sur WhatsApp","Consulter les menus","Réserver une date directement"]},
- {k:"volume",l:"Combien de demandes recevez-vous par mois, et combien en voudriez-vous ?"},
- {k:"delai",l:"Pour quand voulez-vous que le site soit en ligne ?",h:"Le début de la haute saison est souvent la vraie date limite.",s:1},
- {k:"autonomie",l:"Voulez-vous pouvoir modifier vous-même les menus et les photos ?",ty:"u",o:["Oui, je veux pouvoir le faire seul","Non, occupez-vous en","Peu importe"]},
- {k:"budget",l:"Quel budget avez-vous prévu ?",ty:"t"},
+ {k:"logo",l:"Tu as un logo ?",ty:"u",o:["Oui, et j'ai le fichier d'origine","Oui, mais seulement une image","Non, il faut le créer"]},
+ {k:"couleurs",l:"Des couleurs auxquelles tu tiens, ou que tu ne veux surtout pas ?"},
+ {k:"sites_aimes",l:"Cite deux ou trois sites que tu trouves beaux",h:"Même en dehors de la restauration",s:1},
+ {k:"aime_pas",l:"À l'inverse, qu'est-ce que tu n'aimes pas, ou qui te manque, sur les sites que tu vois ?",s:1},
+ {k:"impression",l:"Quelle impression le visiteur doit avoir en trois secondes ?",ty:"u",o:["Luxe discret, épuré","Chaleureux, généreux, familial","Créatif, gastronomique, spectaculaire","Îles, soleil, élégance décontractée"]}]},
+{t:"Ce que tu as déjà",q:[
+ {k:"site_actuel",l:"Tu as déjà un site ? À quelle adresse ?",ty:"t"},
+ {k:"domaine",l:"Tu possèdes une adresse internet (nom de domaine) ? Chez qui ?",h:"Et tu as encore les identifiants pour y accéder ?"},
+ {k:"reseaux",l:"Tes réseaux sociaux",h:"Colle les liens, et indique le nombre d'abonnés si tu le sais",s:1},
+ {k:"google",l:"Tu apparais sur Google Maps ?",h:"C'est souvent la première source de clients, avant même le site. Si non, on la crée.",ty:"u",s:1,o:["Oui","Non","Je ne sais pas"]},
+ {k:"email_pro",l:"Tu utilises une adresse e-mail professionnelle, ou un gmail ?",ty:"t"},
+ {k:"legal",l:"Tes informations légales",h:"Numéro SIRET, raison sociale, adresse — obligatoires en bas du site"}]},
+{t:"Tes objectifs",q:[
+ {k:"action",l:"Que doit faire le visiteur en priorité sur ton site ?",ty:"u",s:1,o:["Envoyer une demande de devis","M'appeler ou m'écrire sur WhatsApp","Consulter les menus","Réserver une date directement"]},
+ {k:"volume",l:"Combien de demandes tu reçois par mois, et combien tu en voudrais ?"},
+ {k:"delai",l:"Pour quand tu veux que le site soit en ligne ?",h:"Le début de la haute saison est souvent la vraie date limite.",s:1},
+ {k:"autonomie",l:"Tu veux pouvoir modifier toi-même les menus et les photos ?",ty:"u",o:["Oui, je veux pouvoir le faire seul","Non, occupe-t'en","Peu importe"]},
+ {k:"budget",l:"Quel budget tu as prévu ?",ty:"t"},
  {k:"autre",l:"Autre chose à me dire ?"}]},
 {t:"C'est terminé",fin:true}
 ];
@@ -153,19 +154,19 @@ D.forEach((s,n)=>{
   const d=document.createElement('section');d.className='sec';d.dataset.n=n;
   let h='<h2>'+s.t+'</h2>';
   if(s.lead)h+='<p class="lead">'+s.lead+'</p>';
-  if(s.intro)h+=`<p class="lead">Ces questions servent à construire votre site. Répondez comme vous parlez, en quelques mots ou en détail. Rien n'est obligatoire.</p>
+  if(s.intro)h+=`<p class="lead">Ces questions servent à construire ton site. Réponds comme tu parles, en quelques mots ou en détail. Rien n'est obligatoire.</p>
   <div class="q intro"><ul>
   <li>Ça prend une quinzaine de minutes.</li>
-  <li>Vos réponses se gardent toutes seules : vous pouvez fermer et revenir plus tard.</li>
+  <li>Tes réponses se gardent toutes seules : tu peux fermer et revenir plus tard.</li>
   <li>À la fin, un bouton m'envoie tout automatiquement.</li>
-  <li>Si une question ne vous parle pas, passez-la.</li>
+  <li>Si une question ne te parle pas, passe-la.</li>
   </ul></div>`;
   if(s.fin)h+=`<div class="done"><div class="big">✓</div>
-  <p class="lead">Merci. Il ne reste qu'à m'envoyer vos réponses.</p></div>
+  <p class="lead">Merci ${PRENOM}. Il ne reste qu'à m'envoyer tes réponses.</p></div>
   <button class="wa" id="sendwa">Envoyer mes réponses</button>
   <button class="gh" id="sendmail">Ou envoyer par e-mail</button>
   <button class="gh" id="dl">Enregistrer une copie</button>
-  <p class="saved" id="note">Pensez aussi à m'envoyer vos photos, vos menus et votre logo.</p>`;
+  <p class="saved" id="note">Pense aussi à m'envoyer tes photos, tes menus et ton logo.</p>`;
   (s.q||[]).forEach(q=>{
     h+='<div class="q">';
     if(q.s)h+='<span class="star">IMPORTANT</span><br>';
@@ -218,7 +219,7 @@ bn.onclick=()=>show(i+1); bp.onclick=()=>show(i-1);
 show(0);
 
 function texte(){
-  let o='QUESTIONNAIRE SITE WEB\n'+new Date().toLocaleDateString('fr-FR')+'\n';
+  let o='QUESTIONNAIRE SITE WEB — '+PRENOM.toUpperCase()+'\n'+new Date().toLocaleDateString('fr-FR')+'\n';
   D.forEach(s=>{if(!s.q)return;o+='\n--- '+s.t.toUpperCase()+' ---\n';
     s.q.forEach(q=>{let v=A[q.k];if(Array.isArray(v))v=v.join(', ');
       o+='\n'+q.l+'\n'+((v&&String(v).trim())?v:'(pas de réponse)')+'\n';});});
@@ -232,19 +233,19 @@ wa.onclick=async()=>{
     body:JSON.stringify({nom:A.nom||'',reponses:A,texte:texte()})});ok=r.ok;}catch(e){}
   if(ok){
     wa.style.background='#25d366';wa.textContent='✓ Réponses envoyées';
-    document.getElementById('note').textContent='C\'est bon, j\'ai tout reçu. Vous pouvez fermer la page. Pensez à m\'envoyer aussi vos photos, vos menus et votre logo.';
-    setTimeout(()=>{window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent("Bonjour, j'ai terminé le questionnaire pour le site."),'_blank');},700);
+    document.getElementById('note').textContent='C\'est bon, j\'ai tout reçu. Tu peux fermer la page. Pense à m\'envoyer aussi tes photos, tes menus et ton logo.';
+    setTimeout(()=>{window.open('https://wa.me/'+WHATSAPP+'?text='+encodeURIComponent("Salut, c'est "+PRENOM+", j'ai terminé le questionnaire pour le site."),'_blank');},700);
   }else{
     wa.disabled=false;wa.textContent='Réessayer l\'envoi';
-    document.getElementById('note').textContent="L'envoi n'a pas fonctionné. Vérifiez votre connexion, ou utilisez le bouton e-mail ci-dessous.";
+    document.getElementById('note').textContent="L'envoi n'a pas fonctionné. Vérifie ta connexion, ou utilise le bouton e-mail ci-dessous.";
   }
 };
 document.getElementById('sendmail').onclick=()=>{
-  location.href='mailto:'+MON_EMAIL+'?subject='+encodeURIComponent('Questionnaire site web')+'&body='+encodeURIComponent(texte());
+  location.href='mailto:'+MON_EMAIL+'?subject='+encodeURIComponent('Questionnaire site web — '+PRENOM)+'&body='+encodeURIComponent(texte());
 };
 document.getElementById('dl').onclick=()=>{
   const b=new Blob([texte()],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
-  a.href=u;a.download='mes-reponses.txt';a.click();URL.revokeObjectURL(u);
+  a.href=u;a.download='questionnaire-'+PRENOM.toLowerCase()+'.txt';a.click();URL.revokeObjectURL(u);
 };
 </script>
 </body>
