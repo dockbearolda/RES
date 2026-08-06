@@ -171,11 +171,11 @@ Q.forEach((q,j)=>{
 });
 
 ecran(N-1,`<div class="done"><div class="big">✓</div>
-<p class="lead">Merci ${PRENOM}. Il ne reste qu'à m'envoyer tes réponses.</p></div>
+<p class="lead">Merci ${PRENOM}. Il ne reste qu'à m'envoyer tes réponses, comme tu préfères.</p></div>
 <button class="wa" id="sendwa">Envoyer mes réponses</button>
-<button class="gh" id="sendmail">Ou envoyer par e-mail</button>
-<button class="gh" id="dl">Enregistrer une copie</button>
-<p class="saved" id="note">Pense aussi à m'envoyer tes photos, tes menus et ton logo.</p>`);
+<button class="gh" id="sendmail">M'envoyer les réponses par e-mail</button>
+<button class="gh" id="dl">Télécharger le fichier et me l'envoyer</button>
+<p class="saved" id="note">Mon e-mail : ${MON_EMAIL}. Pense aussi à m'envoyer tes photos, tes menus et ton logo.</p>`);
 
 // le champ grandit avec le texte : jamais de minuscule fenêtre qui défile
 const grow=el=>{if(el.tagName==='TEXTAREA'){el.style.height='auto';el.style.height=Math.max(el.scrollHeight,104)+'px'}};
@@ -245,12 +245,14 @@ wa.onclick=async()=>{
 };
 document.getElementById('sendmail').onclick=async()=>{
   // l'appli mail peut ne jamais s'ouvrir : on garde d'abord une copie cote serveur
-  await envoyer();
+  const ok=await envoyer();
+  if(ok)document.getElementById('note').textContent="C'est bon, j'ai tout reçu. Si ton appli e-mail ne s'ouvre pas, ce n'est pas grave.";
   location.href='mailto:'+MON_EMAIL+'?subject='+encodeURIComponent('Questionnaire site web — '+PRENOM)+'&body='+encodeURIComponent(texte());
 };
 document.getElementById('dl').onclick=()=>{
   const b=new Blob([texte()],{type:'text/plain;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
   a.href=u;a.download='questionnaire-'+PRENOM.toLowerCase()+'.txt';a.click();URL.revokeObjectURL(u);
+  envoyer(); // le fichier peut ne jamais partir : on garde une copie cote serveur
 };
 </script>
 </body>
