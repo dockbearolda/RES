@@ -226,12 +226,14 @@ function texte(){
       o+='\n'+q.l+'\n'+((v&&String(v).trim())?v:'(pas de réponse)')+'\n';});});
   return o;
 }
+// enregistre les reponses sur le serveur : les deux boutons d'envoi passent par la
+const envoyer=()=>fetch('/api/reponses',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({nom:A.nom||'',reponses:A,texte:texte()})}).then(r=>r.ok).catch(()=>false);
+
 const wa=document.getElementById('sendwa');
 wa.onclick=async()=>{
   wa.disabled=true;wa.textContent='Envoi en cours…';
-  let ok=false;
-  try{const r=await fetch('/api/reponses',{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({nom:A.nom||'',reponses:A,texte:texte()})});ok=r.ok;}catch(e){}
+  const ok=await envoyer();
   if(ok){
     wa.style.background='#25d366';wa.textContent='✓ Réponses envoyées';
     document.getElementById('note').textContent='C\'est bon, j\'ai tout reçu. Tu peux fermer la page. Pense à m\'envoyer aussi tes photos, tes menus et ton logo.';
@@ -241,7 +243,9 @@ wa.onclick=async()=>{
     document.getElementById('note').textContent="L'envoi n'a pas fonctionné. Vérifie ta connexion, ou utilise le bouton e-mail ci-dessous.";
   }
 };
-document.getElementById('sendmail').onclick=()=>{
+document.getElementById('sendmail').onclick=async()=>{
+  // l'appli mail peut ne jamais s'ouvrir : on garde d'abord une copie cote serveur
+  await envoyer();
   location.href='mailto:'+MON_EMAIL+'?subject='+encodeURIComponent('Questionnaire site web — '+PRENOM)+'&body='+encodeURIComponent(texte());
 };
 document.getElementById('dl').onclick=()=>{
